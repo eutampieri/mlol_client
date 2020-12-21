@@ -803,3 +803,7 @@ class MLOLClient:
         data = self._api_request(method="GET", url=API_ENDPOINTS["userinfo"])
         if data:
             return MLOLApiConverter.get_user(data)
+
+    @staticmethod
+    def search_library_id(search: str) -> List[(str, int)]:
+        return [(i["name"], i["id"]) for i in requests.get(ENDPOINTS["api"]["portals"]).json() if i["name"].find(search) != -1]
